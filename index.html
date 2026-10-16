@@ -8,17 +8,113 @@
 </head>
 <body>
 
-    <h1>Weather App</h1>
+    <main class="weather-app">
 
-    <input type="text" id="cityInput" placeholder="Enter city name">
+        
+        <header class="app-header">
+            <h1>Weatherly</h1>
+            <p>Your daily weather forecast</p>
+        </header>
 
-    <button id="searchBtn">Search</button>
+        
+        <form id="weatherForm" class="search-form">
+            <input
+                type="text"
+                id="cityInput"
+                placeholder="Search for a city..."
+                autocomplete="off"
+            >
+            <button type="submit" id="searchBtn">Search</button>
+        </form>
 
-    <div id="weatherInfo">
-        <h2 id="cityName">City Name</h2>
-        <p id="temperature">temperature: --℃</p>
-        <p id="description">Weather: --</p>
-    </div>
+        
+        <section class="current-weather">
+            <div class="current-info">
+                <p class="label">CURRENT WEATHER</p>
+                <h2 id="cityName">Vancouver</h2>
+                <p id="description">Partly cloudy</p>
+                <p id="temperature">18°C</p>
+                <p id="feelsLike">Feels like --°C</p>
+            </div>
+
+            <div class="weather-icon" id="currentWeatherIcon">
+                🌤️
+            </div>
+        </section>
+
+        
+        <section class="weather-details">
+            <h2>Today's Highlights</h2>
+
+            <div class="details-grid">
+
+                <article class="weather-card">
+                    <span class="card-icon">💧</span>
+                    <h3>Humidity</h3>
+                    <p id="humidity">--%</p>
+                </article>
+
+                <article class="weather-card">
+                    <span class="card-icon">💨</span>
+                    <h3>Wind Speed</h3>
+                    <p id="windSpeed">-- km/h</p>
+                </article>
+
+                <article class="weather-card">
+                    <span class="card-icon">🌡️</span>
+                    <h3>Pressure</h3>
+                    <p id="pressure">-- hPa</p>
+                </article>
+
+                <article class="weather-card">
+                    <span class="card-icon">👁️</span>
+                    <h3>Visibility</h3>
+                    <p id="visibility">-- km</p>
+                </article>
+
+            </div>
+        </section>
+
+        
+        <section class="forecast-section">
+            <h2>Hourly Forecast</h2>
+
+            <div class="forecast-grid" id="hourlyForecast">
+                <article class="forecast-card">
+                    <p>Now</p>
+                    <span>🌤️</span>
+                    <p>--°</p>
+                </article>
+
+                <article class="forecast-card">
+                    <p>Next</p>
+                    <span>☀️</span>
+                    <p>--°</p>
+                </article>
+
+                <article class="forecast-card">
+                    <p>Later</p>
+                    <span>☁️</span>
+                    <p>--°</p>
+                </article>
+            </div>
+        </section>
+
+        
+        <section class="forecast-section">
+            <h2>5-Day Forecast</h2>
+
+            <div id="dailyForecast" class="daily-forecast">
+                <p>Weather forecast will appear here.</p>
+            </div>
+        </section>
+
+       
+        <footer class="app-footer">
+            <p>Weatherly · Your weather, at a glance</p>
+        </footer>
+
+    </main>
 
     <script src="script.js"></script>
 </body>
