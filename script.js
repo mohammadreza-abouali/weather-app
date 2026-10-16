@@ -22,7 +22,7 @@ searchBtn.addEventListener("click", async function () {
             return;
         }
 
-        // پیدا کردن مختصات شهر
+
         const cityUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`;
 
         const cityResponse = await fetch(cityUrl);
@@ -43,7 +43,7 @@ searchBtn.addEventListener("click", async function () {
         const latitude = cityData.results[0].latitude;
         const longitude = cityData.results[0].longitude;
 
-        // دریافت اطلاعات آب‌وهوا
+
         const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code`;
 
         const weatherResponse = await fetch(weatherUrl);
@@ -54,12 +54,12 @@ searchBtn.addEventListener("click", async function () {
 
         const weatherData = await weatherResponse.json();
 
-        // نمایش نام شهر و دما
+
         cityName.textContent = cityData.results[0].name;
         temperature.textContent =
             "Temperature: " + weatherData.current.temperature_2m + " °C";
 
-        // تشخیص وضعیت آب‌وهوا
+
         const weatherCode = weatherData.current.weather_code;
 
         if (weatherCode === 0) {
@@ -88,26 +88,3 @@ searchBtn.addEventListener("click", async function () {
     }
 
 });
-
-
-
-
-
-
-
-
-
-
-// searchBtn.addEventListener("click", function(){
-//     const city = cityInput.value.trim();
-//     if(city === "") {
-//         cityName.textContent = "Please enter a city!";
-//         temperature.textContent = "temperature: -- ℃"
-//         description.textContent = "Weather: --"
-//         return;
-//     }
-
-//     cityName.textContent = city;
-//     temperature.textContent = "Temperature: 29 ℃";
-//     description.textContent = "Weather: sunny";
-// })
