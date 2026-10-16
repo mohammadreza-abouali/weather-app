@@ -15,7 +15,7 @@ const visibility = document.getElementById("visibility");
 const hourlyForecast = document.getElementById("hourlyForecast");
 const dailyForecast = document.getElementById("dailyForecast");
 
-
+// تشخیص وضعیت آب‌وهوا
 function getWeatherInfo(code) {
     if (code === 0) return { text: "Clear sky", icon: "☀️" };
     if (code === 1) return { text: "Mainly clear", icon: "🌤️" };
@@ -32,7 +32,7 @@ function getWeatherInfo(code) {
     return { text: "Unknown", icon: "🌡️" };
 }
 
-
+// تبدیل درجه باد به جهت قابل‌خواندن
 function getWindDirection(degrees) {
     const directions = [
         "N", "NE", "E", "SE",
@@ -42,12 +42,12 @@ function getWindDirection(degrees) {
     return directions[Math.round(degrees / 45) % 8];
 }
 
-
+// تبدیل زمان به ساعت قابل‌نمایش
 function formatHour(time) {
     return time.slice(11, 16);
 }
 
-
+// دریافت اطلاعات آب‌وهوا با جست‌وجوی شهر
 weatherForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -62,7 +62,7 @@ weatherForm.addEventListener("submit", async function (event) {
     description.textContent = "Getting weather data...";
 
     try {
-        
+        // مرحله اول: پیدا کردن مختصات شهر
         const cityUrl =
             `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`;
 
@@ -82,7 +82,7 @@ weatherForm.addEventListener("submit", async function (event) {
         const latitude = location.latitude;
         const longitude = location.longitude;
 
-        
+        // مرحله دوم: دریافت اطلاعات فعلی و پیش‌بینی
         const weatherUrl =
             `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,pressure_msl,wind_speed_10m,wind_direction_10m&hourly=temperature_2m,weather_code,visibility&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto&forecast_days=5`;
 
@@ -97,7 +97,7 @@ weatherForm.addEventListener("submit", async function (event) {
         const current = data.current;
         const info = getWeatherInfo(current.weather_code);
 
-        
+        // نمایش اطلاعات فعلی
         cityName.textContent =
             `${location.name}, ${location.country || ""}`;
 
@@ -119,7 +119,7 @@ weatherForm.addEventListener("submit", async function (event) {
         pressure.textContent =
             `${current.pressure_msl} hPa`;
 
-        
+        // پیدا کردن نزدیک‌ترین ساعت برای نمایش میزان دید
         const currentHour = current.time.slice(0, 13);
 
         let hourIndex = data.hourly.time.findIndex(
@@ -136,7 +136,7 @@ weatherForm.addEventListener("submit", async function (event) {
         visibility.textContent =
             `${visibilityKm.toFixed(1)} km`;
 
-        
+        // پیش‌بینی سه ساعت آینده
         hourlyForecast.innerHTML = "";
 
         for (let i = 0; i < 3; i++) {
@@ -169,7 +169,7 @@ weatherForm.addEventListener("submit", async function (event) {
             hourlyForecast.appendChild(card);
         }
 
-        
+        // پیش‌بینی پنج‌روزه
         dailyForecast.innerHTML = "";
 
         for (let i = 0; i < data.daily.time.length; i++) {
